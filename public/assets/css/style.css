@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "JosefinSans";
+    src: url("../font/JosefinSans-Regular.ttf");
+}
+
+*{
+    font-family: "JosefinSans";
+}
