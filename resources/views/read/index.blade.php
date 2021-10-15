@@ -1,12 +1,12 @@
 @extends('layouts/app')
 
 
-@section('title', 'Home')
+@section('title', 'Read')
 
 
 @section('container')
     @parent
-    <hr>
+
     Hello world
     <section class="container">
         <div class="input-group">
@@ -14,4 +14,9 @@
             <span class="input-group-text"><i data-feather="search"></i></span>
         </div>
     </section>
+@endsection
+
+
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@10.0.0/dist/markdown-it.min.js" type="text/javascript"></script>
 @endsection
