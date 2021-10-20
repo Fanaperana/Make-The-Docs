@@ -5,18 +5,20 @@
 
 
 @section('container')
-<div class="d-flex d-flex-row justify-content-center">
+<div class="d-flex d-flex-row justify-content-center" style="height: 75vh;">
     <div class="container-fluid">
         <h4>Markdown Text</h4>
         <hr>
-        <textarea name="markdown" class="w-100 h-100" id="md">
 
-        </textarea>
+        <div class="container w-100 h-100 border p-3">
+            <textarea class="h-100 w-100" id="md"> </textarea>
+        </div>
+
     </div>
     <div class="container-fluid">
-        <h4>Rendered result</h4>
+        <h4>Rendered result <button class="btn btn-outline-info ml-auto" onclick="printEl()">Print</button></h4>
         <hr>
-        <div class="container-fluid">
+        <div class="container-fluid h-100 overflow-auto">
             <div id="rendered"></div>
         </div>
     </div>
@@ -34,16 +36,37 @@
     <link rel="stylesheet" href="{{('assets/vendor/hljs/style/atom-one-dark.css')}}">
     <script src="{{ asset('assets/vendor/hljs/js/highlight.min.js')}}"></script>
 
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/codemirror/css/codemirror.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/codemirror/css/theme/ambiance.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/codemirror/css/theme/lucario.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/codemirror/css/theme/mdn-like.css')}}">
+
+
+    <script src="{{asset('assets/vendor/codemirror/js/codemirror.js')}}"></script>
+    <script src="{{asset('assets/vendor/codemirror/js/markdown.js')}}"></script>
+
 @endsection
 
 
 @section('script-footer')
+    <!-- highlight-js -->
+
+
     <script type="text/javascript">
 
-        function renderMd(){
-            let mdText = document.getElementById('md').value;
-            let renderedMd = document.getElementById('rendered');
+        let editor = document.getElementById('md');
+        let c = CodeMirror.fromTextArea(editor, {
+            mode: 'markdown',
+            lineNumbers: true,
+            theme: "mdn-like",
+            lineWrapping: true,
+            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+        });
 
+        c.setSize("100%", "100%");
+        c.on("keyup", function(e){
+            let r = document.getElementById("rendered");
             let md = window.markdownit({
                 html: true,
                 linkify: true,
@@ -68,12 +91,24 @@
             md.use(window.markdownitSub);
             md.use(window.markdownitSup);
 
-            let result = md.render(mdText.toString());
+            let result = md.render(e.getValue());
 
-            renderedMd.innerHTML = result;
+            r.innerHTML = result;
+        });
+
+        function printEl(){
+            let head = document.getElementsByTagName("head")[0].innerHTML;
+            let re = document.getElementById("rendered").innerHTML;
+            let w = window.open('', "", 'height=700', "width=500");
+            w.document.write('<html>');
+            w.document.write(head);
+            w.document.write("<body>")
+            w.document.write('<div class="container" style="max-width: 780px;">'+ re + "</div>");
+            w.document.write('</body></html>');
+
+            w.document.close();
+            w.print();
         }
-
-        let d = document.getElementById("md");
-        d.addEventListener("keyup", renderMd);
     </script>
+    <!-- // -->
 @endsection

@@ -13,6 +13,23 @@
             <input type="search" class="form-control">
             <span class="input-group-text"><i data-feather="search"></i></span>
         </div>
+
+        <div class="container">
+            <ul>
+                @foreach($files as $file)
+                    <li>{{$file}}</li>
+                @endforeach
+            </ul>
+
+        </div>
+        <div class="container">
+            <ul>
+                @foreach($repos as $repo)
+                    <li>{{$repo}}</li>
+                @endforeach
+            </ul>
+
+        </div>
     </section>
 @endsection
 

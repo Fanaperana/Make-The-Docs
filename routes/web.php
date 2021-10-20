@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('/read', function(){
-   return view('read.index');
-});
+Route::get('/read', [ReadController::class, 'index']);
 
 Route::get('/edit', function(){
     return view('edit.index');
