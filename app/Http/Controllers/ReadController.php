@@ -10,8 +10,8 @@ class ReadController extends Controller
     //
     function index(){
 
-        $files = Storage::disk('local')->directories('data');
-        $repos = Storage::disk('local')->files('data');
+        $files = Storage::directories('public/data/Users');
+        $repos = Storage::files('public/data');
 
         return view('read.index')->with([
             'files' => $files,
