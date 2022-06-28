@@ -11,7 +11,7 @@
         <hr>
 
         <div class="container w-100 h-100 border p-3">
-            <textarea class="h-100 w-100" id="md"> </textarea>
+            <div class="h-100 w-100" id="md"> </div>
         </div>
 
     </div>
@@ -50,51 +50,12 @@
 
 
 @section('script-footer')
+
+    <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ asset('js/monaco.js') }}" type="module"></script>
+
     <!-- highlight-js -->
-
-
     <script type="text/javascript">
-
-        let editor = document.getElementById('md');
-        let c = CodeMirror.fromTextArea(editor, {
-            mode: 'markdown',
-            lineNumbers: true,
-            theme: "mdn-like",
-            lineWrapping: true,
-            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
-        });
-
-        c.setSize("100%", "100%");
-        c.on("keyup", function(e){
-            let r = document.getElementById("rendered");
-            let md = window.markdownit({
-                html: true,
-                linkify: true,
-                typographer: true
-            });
-
-            md.set({
-                highlight: function (str, lang) {
-                    if (lang && hljs.getLanguage(lang)) {
-                        try {
-                            return '<pre class="hljs"><code>' +
-                                hljs.highlight(lang, str, true).value +
-                                '</code></pre>';
-                        } catch (__) {}
-                    }
-
-                    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-                }
-            });
-
-            md.use(window.markdownItAttrs);
-            md.use(window.markdownitSub);
-            md.use(window.markdownitSup);
-
-            let result = md.render(e.getValue());
-
-            r.innerHTML = result;
-        });
 
         function printEl(){
             let head = document.getElementsByTagName("head")[0].innerHTML;

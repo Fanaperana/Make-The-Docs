@@ -32,5 +32,9 @@
   "bugs": {
     "url": "https://github.com/Fanaperana/Make-The-Docs/issues"
   },
-  "homepage": "https://github.com/Fanaperana/Make-The-Docs#readme"
+  "homepage": "https://github.com/Fanaperana/Make-The-Docs#readme",
+  "dependencies": {
+    "monaco-editor": "^0.33.0",
+    "monaco-editor-webpack-plugin": "^7.0.1"
+  }
 }
